@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,6 +41,11 @@ public class FileUploadController {
         try {
 
             byte[] bytes = file.getBytes();
+            File f1 = new File(UPLOADED_FOLDER);
+            File[] files = f1.listFiles();
+            for(int i=0; i < files.length; i++) {
+            	files[i].delete();
+            }
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
             Files.write(path, bytes);
 
